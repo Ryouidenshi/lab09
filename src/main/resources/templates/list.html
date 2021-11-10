@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<head>
+    <title>MAGAZIN_JEKI</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="main.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div style="background-image: url('https://www.4vsar.ru/i/gallery/15845/big/150253.jpg'); height: 2000px">
+<div class="container">
+    <div id = "bg"></div>
+    <h1 class="title" style="background-color: red">Карман</h1>
+    <button onclick="location.href='/items/new'" class="btn-success add">Затарить хавку</button>
+    <hr/>
+    <div class="content">
+        <div class="row article" th:each="purchase : ${purchases}">
+            <input th:attr="data-purchase-id=${purchase.id},bought=${purchase.bought}"
+                   th:checked="${purchase.bought}"
+                   type="checkbox"
+                   class="checkbox"/>
+            <h3 th:text="${purchase.text}" style="background-color: red">Текст</h3>
+            <div class="buttons">
+                <form th:action="${'/items/'+purchase.id}" th:method="get">
+                    <button th:type="submit" class="btn-info">Изменить</button>
+                </form>
+                <form th:action="${'/items/'+purchase.id}" th:method="delete">
+                    <button th:type="submit" class="btn-danger">Удалить</button>
+                </form>
+            </div>
+            <hr/>
+        </div>
+    </div>
+</div>
+</body>
+</html>
